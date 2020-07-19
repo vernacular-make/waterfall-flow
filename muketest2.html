@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!--<link type="text/css" rel="stylesheet" hef="css/style.css" />-->
+		<link type="text/css" rel="stylesheet"  href="css/style.css" />
+		<!--<script type="text/javascript" src="js/script1.js"></script>-->
+	</head>
+		 <body>
+		     <div id="main">
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/11.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/1.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/2.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/3.jpg" />
+		 			</div>
+		 		</div>
+		  		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/4.jpg" />
+		 			</div>
+		 		</div>
+		  		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/5.jpg" />
+		 			</div>
+		 		</div>
+		  		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/6.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/7.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/8.jpg" />
+		 			</div>
+		 		</div>
+		 		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/9.jpg" />
+		 			</div>
+		 		</div>
+		  		<div class="box">
+		 			<div class="pic">
+		 				<img src="image1/10.jpg" />
+		 			</div>
+		 		</div>
+			</div>
+		<script type="text/javascript">
+		 window.onload=function(){
+		     waterfall('main','box');
+		}
+		function waterfall(parent,box){
+		  var oParent=document.getElementById(parent);
+		  var oBoxs=getByClass(oParent,box);
+		  var oBoxW=oBoxs[0].offsetWidth;
+		  //var cols=Math.floor(online.window.width/oBoxW);
+		  var cols=Math.floor(innerWidth/oBoxW);
+		  //oParent.style.cssText="width: ;"+cols*oBoxW+"px,margin: 0px auto";
+		  oParent.style.cssText='width:'+oBoxW*cols+'px;margin:0px auto;border: 2px solid red';
+		  var oBoxH=new Array(); // 或者var oBoxH=[]; 
+		  for(var i=0;i<oBoxs.length;i++){
+		    if(i<cols){
+		       // 将图片的高度值添加到数组中
+			   //var oBoxH=new Array();错误，每次都开了一个空间，所以应该在前面定义
+			   oBoxH.push(oBoxs[i].offsetHeight);
+		    }else{
+		      // 求最小值和最小值的索引
+		      //var MinH=Math.min.display(null,oBoxH);
+			  var MinH=Math.min.apply(null,oBoxH);
+			  var index=getMinhIndex(oBoxH,MinH);
+		      // 计算及定义图片出现的位置(1、注意加上style)
+		      oBoxs[i].style.position='absolute';
+			  oBoxs[i].style.top=MinH+'px'; //oBoxs[index].offsetTop
+			  oBoxs[i].style.left=oBoxs[index].offsetLeft+'px';
+		      // 改变数组值
+		      /*错误
+			    oBox[i].Hight+=oBoxs[index].offsetHeight;
+			  oBox[index]=oBox[i].offsetHeight;*/
+			  //oBoxH[index]+=oBox[i].offsetHeight;
+			  oBoxH[index]+=oBoxs[i].offsetHeight; 
+		    }
+		  }
+		function getByClass(parent,clsName){
+		  var boxArr=new Array(), 
+		      oElements=parent.getElementsByTagName('*');
+		  for(var i=0;i<oElements.length;i++){
+		    if(oElements[i].className==clsName){
+		      boxArr.push(oElements[i]);
+		    }
+		  }
+		  return boxArr;
+		}
+		// 求值在数组中的索引,arr接收的是数组，val接收的是判断的值
+		function getMinhIndex(arr,val){
+		    //for(var i=0;i<arr.length;i++){   //or for(var i in arr){
+			for(var i in arr){
+				if(arr[i]==val){
+					return i;
+				}
+			}	
+		}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html> <!--声明DOC TYPE-->
+<html> <!--标签 头(标题，编码方式) body-->
+	<head>
+		<title>瀑布流布局</title>  
+		<meta charset="UTF-8">
+		<!--写CSS样式 方法一：开始效果显示不出来 是 路径的问题（先前将style.css放入了工程底部，没有放入css文件夹中）-->
+		<link type="text/css" rel="stylesheet"  href="css/style.css" />
+		<!-- 写CSS样式 方法二
+		<style type="text/css">
+			*{margin:0;    /*边界 填充(顶部 右边 下边 左边)*/
+			  padding:0;}
+			#main{position: relative;}  /*相对定位是要定义在所有数据块的父盒子上的*/
+			.box{padding: 15px 0 0 15px;
+			     float:left;}              /*图片自动浮动*/
+			.pic{padding: 10px             /*上下左右各拉开10px*/
+			     border:1px solid #CCCCCC; /*方的*/
+				 border-radius: 5px;
+				 box-shadow: 0 0 5px #CCCCCC;     /*阴影模糊程度5px*/
+				 }          
+		    .pic img {width:165px;
+			     height: auto;}
+		</style>
+		-->
+		<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="js/script_jQ.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<div class="box">
+				<div class="pic">
+					<img src="image/0.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/1.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/2.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/3.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/4.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/5.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/6.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/7.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/8.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/9.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/10.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/11.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/12.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/13.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/14.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/15.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/16.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/17.jpg" />	
+				</div>
+			</div>
+			<div class="box">
+				<div class="pic">
+					<img src="image/18.jpg" />	
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

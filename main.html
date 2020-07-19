@@ -1,0 +1,92 @@
+<!DOCTYPE html> <!--声明DOC TYPE-->
+<html> <!--标签 头(标题，编码方式) body-->
+	<head>
+		<meta charset="UTF-8">
+		<title>瀑布流布局</title>  
+		<style>
+			#container{margin: 50px auto;width: 1000px;border: 2px solid red;}
+			.items{width: 200px;height:300px;position: absolute;}
+		</style>
+	</head>
+	<body>
+		<!--div.items{$}*10-->
+		<div id="container">
+			
+		</div>	
+		
+		<script type="text/javascript" src="js/jquery-1.12.0.min.js" ></script>
+		<script>
+			
+			$(function(){
+				/*
+				 	 案例：瀑布流
+				 	 1:高度是自动伸缩.宽度固定
+				 	 2:定位布局，讲究就改变每一个元素的top和left位置即可。
+				 	 3:间距的设定
+				 
+				 */
+				
+				//容器对象
+				var $container = $("#container");
+				
+				
+				//固定宽度
+				var width = 200;
+				//间距
+				var space = 10;
+				//真实距离
+				var outwidth = width +space;
+				//求列数
+				var cells = 0;
+				
+				
+				//数据url===百度===JSON加密与解密
+				var sUrl = 'http://www.wookmark.com/api/json/popular?callback=?';//这只是一个测试数据连接地址，最好做完肯定是改成你自己的连接地址
+				var pageNo = 0;
+				var mark = true;
+			
+				
+				function getCells(){
+					//求出列数
+					//cells = Math.floor(window.innerWidth /outwidth);
+					//将容器的宽度用真实的大小进行计算，就完整的宽度
+					//$container.width(cells * outerWidth-space);
+					cells = window.innerWidth /outwidth;
+					console.log(cells);
+				}
+				
+				getCells();
+				
+				/*
+				console.log(obj.preview);
+				console.log(obj.image);
+				console.log(obj.width);
+				console.log(obj.height);
+				console.log(obj.title);
+				console.log(obj.id);
+				console.log(obj.url);
+				console.log("========================");
+				*/
+				//alert($.param({page:0,pg:2}));
+				$.getJSON(sUrl,{page:0},function(data){
+				//$.getJSON(sUrl,"page=0,function(data){
+					data.forEach(function(obj){
+						//计算出图片宽度缩小以后的比例，用户计算高度的缩放比例.
+						var sbit = width/obj.width;
+						var iheight = obj.height *sbit;
+						//创建一个div
+						var $div = $("<div/>");
+						//放一张图片
+						$div.addClass("items").css({
+							left:0,
+							top:0
+						}).html("<img src='"+obj.preview+"' width='"+width+"' height='"+iheight+"'/>");
+						//添加到容器中
+						$container.append($div);
+					});
+				});
+			});
+			
+		</script>
+	</body>
+</html>

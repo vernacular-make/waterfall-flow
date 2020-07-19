@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+		<ul id="list">
+			<li class="on">1</li>
+			<li class="select">2</li>
+			<li class="on">3</li>
+			<li>4</li>
+		</ul>
+		<p class="on">class为on的p标签</p>
+		
+</body>
+</html>
+<script type="text/javascript">
+  window.onload=function(){
+  var len1= getByClass('on','list');
+    // alert(len1.length);  // 结果等于2为正确
+	console.log(len1.length)
+  var len2= getByClass('on');
+    // alert(len1.length);  // 结果等于3为正确
+	console.log(len2.length);
+}
+
+function getByClass(clsName, parent){
+ //定义函数getByClass()实现获取document或指定父元素下所有class为on的元素  
+  /*错误版本一
+  var oParent=document.getElementById(parent);  //获得list元素 
+  for(var i=0;i<oParent.length,i++){
+	  if(oParent[i].class==clsName){
+		  return oParent[i];                    //返回的是一个数了不是数组
+	  }
+  }
+  */
+  /*错误版本二
+  var oParent=document.getElementById(parent);  //获得list元素
+  var clsArray= new Array();
+  Elements=oParent.getElementsByTagname('*');
+  for(var i=0;i<Elements.length;i++){
+	  if(Elements[i]==clsName){             Elements[i].className
+		  clsArray.push(Elements[i]);
+	  }
+  }
+  return clsArray;
+  */
+ /*版本三应该正确吧
+ var oParent=document.getElementById(parent);  //获得list元素
+ var clsArray= new Array();
+ Elements=oParent.getElementsByTagName('*');
+ for(var i=0;i<Elements.length;i++){
+ 	  if(Elements[i].className==clsName){            
+ 		  clsArray.push(Elements[i]);
+ 	  }
+ }
+ return clsArray;
+}	*/
+   var oParent=parent?document.getElementById(parent):document,
+   boxArr=new Array(),
+     oElements=oParent.getElementsByTagName('*');
+   for(var i=0;i<oElements.length;i++){
+    if(oElements[i].className==clsName){
+      boxArr.push(oElements[i]);
+    }
+   }
+  return boxArr;
+}
+</script>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>WavedRound</title>
+  <!--一、wrap包裹小的东西;margin:边缘，距离边缘多少设置;border-radius:方块盒子画圆,加圆角;align:排列;span:跨度跨据范围;#111黑色--;auto:默认;z-index 属性设置元素的堆叠顺序，拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面，仅仅在定位元素上奏效即是position:absolute.)-->
+  <!--二、形成一个圆形周围渲染的方式：
+  1、建立一个box,建立一个超级链接 
+  2、渲染：首先建立一个大小可覆盖的原box的box   外层盒子box{},内层盒子box a{}:  <style>中更改为.box{position:relative;width:120px;height:120px;}可体现
+  包括定位(成对使用position:relative/position:absolute left： top：相对位置设定；
+  -->
+  <style>
+      *{padding:0;margin:0}
+	  body{font-size:14px;font-family:"微软雅黑"}
+	  ul li{list-style:none}
+	  a{text-decoration:none;color:#333}
+      .wrap{width:100px;height:100px;margin:300px auto;} 
+	  .box{position:relative;}
+	  .box a{display:block;position:relative;z-index:2;background:red;border-radius:50%;width:100px;height:100px;text-align:center;line-height:100px;color:#fff;}
+	  .gy{position:absolute;width:100%;height:100%;background:#111;top:0;left:0;z-index:1;border-radius:50%;animation:move 2s ease-in-out infinite;}
+      .gy.move2{animation:move2 2s ease-in-out infinite;}
+	  /*keyframes是以拍的一部电影，from(0%) ;中间分配做些什么10% 8% 50%;  to(100%) 是每一个情节   ;animation关键帧 播放动画 ;ease匀速 后加数字比如5即是播放5次，加infinite则无限播放 再在之后加上alternate(有去有回); 以1s的方式播放这个电影*/
+	  /*css3中transform:scale
+	    opacity原默认为1（淡出）渐近颜色变化 用0-1表示程度
+	  */
+	  @keyframes move{
+	       /*慢慢放大动画*/
+	      from{transform:scale(1);opacity:1} 
+		  to{transform:scale(1.5);opacity:0}
+
+		  /*位移，旋转*/
+          /*0%{transform:translatex(100px) rotate(0deg)} 
+		  100%{transform:translatex(1000px) rotate(360deg)}*/
+	  }
+	  @keyframes move2{
+	       /*叠加慢慢放大动画 位移 斜切旋转：0-30向Y轴转30度 30-0向x轴旋转30度*/
+		  /*
+          0%{transform:scale(1) translatex(0px) skewx(20deg);opacity:0} 
+          50%{transform:scale(2) translatex(-300px) skewx(30deg);opacity:0.5} 
+          70%{transform:scale(1) translatex(0px) skewx(0deg);opacity:0.8} 
+		  100%{transform:scale(2)   translatex(300px) skewx(-30deg);opacity:1}
+		  */
+		  from{transform:scale(1);opacity:1} 
+		  to{transform:scale(6);opacity:0}
+	  }
+  </style>
+ </head>
+
+ <body>
+    <div class="wrap">
+		<div class="box">
+		    <a href="javascript:void(0);" id="clickme">点我</a>  
+			<span class="gy">2222</span>
+            <!--<span class="gy move2"></span> 叠加叠加用JS做-->
+	    </div>
+    </div>
+
+	<script>
+         window.onload = function(){
+			var arr =[];//控制产生多少个叠加
+			document.getElementById("clickme").onclick = function(){
+				//box对象
+				if(arr.length>20)return;
+				var pdom = this.parentElement;
+				var spanDom = document.createElement("span");
+                spanDom.className="gy move2";
+				//spanDom.style.background=randomColor();
+				//this.style.background=randomColor();
+		      //or下面添加线性梯度颜色
+                //spanDom.style.background="linear-gradient("+randomColor()+","+randomColor()+")";
+				//this.style.background="linear-gradient("+randomColor()+","+randomColor()+")";
+              //or下面添加椭圆、径向渐变颜色
+				spanDom.style.background="radial-gradient("+randomColor()+","+randomColor()+")";
+				this.style.background="radial-gradient("+randomColor()+","+randomColor()+")";
+                pdom.appendChild(spanDom);
+				arr.push(spanDom);
+				//设置时间停止 2s
+				setTimeout(function(){
+					 var index = arr.indexOf(spanDom);
+					 pdom.removeChild(arr.splice(index,1)[0]);
+				},2000);
+
+                //随机颜色函数
+				function randomColor(){
+					var r=Math.floor(Math.random()*256);
+					var g=Math.floor(Math.random()*256);
+					var b=Math.floor(Math.random()*256);
+					return "rgb("+r+","+g+","+b+")";
+				};
+
+                function randomColor16(){
+					//0-255
+					var r=Math.random(255).toString(16);
+					var g=Math.random(255).toString(16);
+					var b=Math.random(255).toString(16);
+					//255的数字换成16进制
+                    if(r.length<2) r="0"+r;
+                    if(g.length<2) g="0"+g;
+					if(b.length<2) b="0"+b;
+				};
+			}
+         }
+	</script>
+ </body>
+</html>

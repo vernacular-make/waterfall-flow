@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	<div id="txt">基本原理非机动车\\械在此基础上能工巧匠地方工业又红又专基本原理非机动车\\械在此基础上能工巧匠地方工业又
+	       {page}2红又专基本原理非机动车\\械在此基础上能工巧匠地方工业又红又专原理非机动车\\械在此基础上能工巧匠地方工业又红又专基本原理非机动车\\械在此基础上能工巧匠地方工业又原理非机动车\\械在此基础上能工巧匠地方工
+	       {page}3业又s_pa红又专基本原理非机动车\\械在此基础上能
+	       {page}4工巧匠地方工业又原理非机动车\\械在此基础上能工巧匠地方工业又红又专基本原理非机动车\\械在此基础上能工巧匠地方工业又
+		   
+    </div>
+	<script type="text/javascript">
+	           var s=document.getElementById("txt").innerHTML;
+	           sp='{page}'    //分页字符
+	           arr=s.split(sp);
+	          function gopage(j){
+					var i=j-1
+	                var s1=arr[i],s2,s3;
+	                s2=j>1?'<a href="#" onclick="gopage('+i+')">上一页</a>':'上一页';
+	                s3=j<arr.length?'<a href="#" onclick="gopage('+(j+1)+')">下一页</a>':'下一页';
+	                txt.innerHTML=s1+'<br>'+'共'+arr.length+'页|第'+j+'页&nbsp;&nbsp;'+s2+' '+s3
+	          };
+	         gopage(1)
+	     </script>
+	</body>
+</html>

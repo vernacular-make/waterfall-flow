@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#container{margin: 50px auto;width: 1000px;border: 2px solid red;}
+			.items{width: 200px;height:300px;position: absolute;}
+		</style>
+	</head>
+	<body>
+		<!--div.items{$}*10-->
+		<div id="container">
+			
+		</div>	
+		<!--
+		jQuery是一个JavaScript函数库。
+		jQuery是一个轻量级的"写的少，做的多"的JavaScript库。
+		jQuery库包含以下功能：
+		HTML 元素选取
+		HTML 元素操作
+		CSS 操作
+		HTML 事件函数
+		JavaScript 特效和动画
+		HTML DOM 遍历和修改
+		AJAX
+		Utilities
+		-->
+		<script type="text/javascript" src="js/jquery-1.12.0.min.js" ></script> 
+		<script>
+				$(function(){
+					/*
+						案例:爆布流(网页图片布置，淘宝物品浏览界面)
+						 1：高度是自动伸缩，宽度固定
+						 2：定位布局，讲究就改变每个元素的top和left位置即可
+						 3：间距设定(图片之间)
+					*/
+				    //容器对象（对象命名建议加一个美元符号 对象与变量之间的区分）
+				    var $container = $("#container");
+				    //固定宽度
+					var width = 200;
+					//间距
+					var space = 10;
+					//真实距离
+					var outwidth = width + space;
+					
+					//数据url  百度 JSON加密与解密
+					var sUrl = 'C:\Users\Administrator\Desktop'; //一个测试数据连接地址
+					var pageNo = 0;
+					var mark = true;
+					
+					//求列数, 放几张图片 
+					var cells = 0;
+					function getCells(){
+						cells = Math.floor(window.innerWidth/outwidth); //获取网页宽度除以真实所要宽度
+					    console.log(cells);        //console 控制台，安慰;（打印）
+						//console.log(window.innerWidth/outwidth); 
+						//console.log(window.innerWidth); 
+						//构建最大匹配的盒子宽度
+					    $container.width(cells * outwidth - space);
+					}	
+					getCells();
+					
+					//JSON (JavaScript Obeject Notation)是 JS 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串。
+					$.getJSON(sUrl,{page:0},function(data){
+						console.log(data);
+					});
+					
+				});
+			</script>
+		</script>
+	</body>
+</html>

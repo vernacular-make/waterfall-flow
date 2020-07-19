@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>排序</title>
+		<style>
+		    *{padding:2px;margin:2px}
+			body{font-size: 20px;font-family: "arial narrow";}
+            a{text-decoration: none;color: #fff;}
+			ul li{list-style: none;}
+			#boxlist li{background:#808080;padding:10px;color:#FFFFFF;margin-bottom:1px ;}
+		</style>>
+	</head>
+	<body>
+		<ul id="boxlist">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		
+		<input type="button" onclick="tzSortLi(this)" value="排我" />
+		<script>
+			/*
+			var xiaoming={
+				id:1,
+				age:10,
+				name:"xiaoxi",
+				score:97
+			};
+			var keke={
+				id:2,
+				age:30,
+				name:"kekek",
+				score:86
+			};
+			var lko={
+				id:3,
+				age:20,
+				name:"lko",
+				score:100
+			};
+			var aa=[];
+			aa.push(xiaoming);
+			aa.push(keke);
+			aa.push(lko);
+			
+			aa.sort(function(a,b){
+				return a.score-b.scorce;     //a-b默认降序，可以更改b.scorce-a.score即是升序
+			});
+			
+			alert(JSON.stringify(aa));
+			*/
+		   //doms--array
+		    function toArray(doms){
+				return Array.prototype.slice.call(doms);
+			}
+			function tzSortLi(obj){
+				var ulDom=document.getElementById("boxlist");
+				var liDoms=ulDom.children;//html collection
+				var liDomArray = toArray(liDoms);
+				obj.mark=!obj.mark;     
+				liDomArray.sort(function(a,b){
+					var v1= parseFloat(a.innerHTML);
+					var v2= parseFloat(b.innerHTML);
+					return obj.mark?v1-v2:v2-v1;
+				});//内存中排序，页面还没有反应
+				
+				liDomArray.forEach(function(obj){
+					ulDom.appendChild(obj);
+				});
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+		* {margin: 0; padding: 0;}
+		#container { width: 1000px; border: 1px solid red; position: relative; margin: 50px auto 0; }
+		#container img { position: absolute; }
+		#loader { width: 100%; height: 60px; background: url('img/loader.gif') no-repeat center #FFF; position: fixed; bottom: 0; left: 0; display: none; }
+	</style>
+	<script type="text/javascript" src="js/jquery-1.12.0.min.js" ></script>
+</head>
+<body>
+	
+	<h1 id="console"></h1>
+	<div id="container"></div>
+    <div id="loader"></div>
+	
+	
+	
+	<script>
+		$(function(){
+			
+			//容器对象
+			var $container = $("#container");
+			var $loader = $("#loader");
+			//计算列
+			var iwidth = 200;
+			//定义间隔
+			var ispace = 10;
+			//实际宽度
+			var outerWidth = iwidth + ispace;
+			//列数
+			var cells = 0;
+			
+			//数据url
+			var sUrl = 'http://www.wookmark.com/api/json/popular?callback=?';
+			var pageNo = 0;
+			var mark = true;
+			
+			//存储每一列的
+			/*var arrLeft = [0,210,420,630];*/
+			var arrLeft = [];
+			var	arrTop = [];
+			//求列
+			function getCells(){
+				cells =  Math.floor($(window).innerWidth()/outerWidth);
+				//限定最小列
+				if (cells < 3) {
+					cells = 3;
+				} 
+				//限定最大列
+				if (cells > 6) {
+					cells = 6;
+				}
+				$container.width(outerWidth * cells-ispace)
+			};
+			
+			getCells();//求出列
+			
+			for (var i=0;i<cells;i++) {
+				arrTop.push(0);
+				arrLeft.push(i*outerWidth)
+			}
+			
+//			console.log(arrLeft.toString());
+//			console.log(arrTop.toString());
+
+			function loadData(){
+				$loader.show();	
+				if(mark){
+					mark = false;
+					$.getJSON(sUrl,"page="+pageNo,function(data){
+						$.each(data,function(index,obj){
+							var $img = $("<img/>");
+							$img.attr("src",obj.preview);
+							$container.append($img);
+							//获取最小位置
+							var minindex = getMinTop();
+							
+							//设置图片的等比高度
+							var imgHeight = (iwidth / obj.width) * obj.height;
+							//设定位置
+							$img.animate({
+								width:iwidth,
+								height:imgHeight,
+								left:arrLeft[minindex],
+								top:arrTop[minindex]
+							});
+							//替换数组中的高度
+							arrTop[minindex] += imgHeight+ispace;
+						});
+						$loader.hide();
+						mark =true;
+					});
+				}
+			};
+			
+			loadData();
+			
+			
+			//获取最短的高度位置
+			function getMinTop(){
+				var minTop = arrTop[0];
+				var index =0;
+				for (var i = 1; i < arrTop.length; i++) {
+					if(arrTop[i]<minTop){
+						minTop = arrTop[i];
+						index = i;
+					}
+				}
+				return index;
+			};
+			 
+			 
+			//滚动加载数据
+			$(window).on("scroll",function(){
+				var maxHeight = $(window).scrollTop()+$(window).innerHeight();
+				var minIndex = getMinTop();
+				if(arrTop[minIndex]+$container.offset().top < maxHeight){
+					pageNo++;
+					loadData();
+				}
+			});
+			
+			
+			$(window).on("resize",function(){
+				var oldCells = cells;
+				getCells();
+				
+				
+				var maxHeight = $(window).scrollTop()+$(window).innerHeight();
+				var minIndex = getMinTop();
+				if(arrTop[minIndex]+$container.offset().top < maxHeight){
+					pageNo++;
+					loadData();
+				}
+				
+				//原来的列和现在的列一样就返回不执行
+				if(oldCells==cells)return;
+				arrLeft=[];
+				arrTop=[];
+				for (var i=0;i<cells;i++) {
+					arrTop.push(0);
+					arrLeft.push(i*outerWidth)
+				}
+				
+				var allImgs = $container.find("img");
+				allImgs.each(function(){
+					var minindex = getMinTop();
+					//设定位置
+					$(this).stop(true,true).animate({
+						left:arrLeft[minindex],
+						top:arrTop[minindex]
+					});
+					//替换数组中的高度
+					arrTop[minindex] += $(this).height()+ispace;
+				});
+			});
+			
+		});
+	</script>	
+</body>
+</html>
