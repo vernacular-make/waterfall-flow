@@ -1,0 +1,19 @@
+*{margin:0;                               /*边界 填充(顶部 右边 下边 左边)*/
+  padding:0;}
+#main{position: relativ;}                /*定义相对定位*/
+
+.box{padding: 15px 0 0 15px;     /*顶部右边下边左边*/
+     float:left;
+	 /*border:1px solid #FF0000; */
+	 }               /*box盒子与盒子之间拉开一定距离*/
+
+/*pic边框，圆角，阴影*/
+.pic{padding: 10px;               /*上下左右各拉开10px*/
+     border:1px solid #FF0000;    /*方的*/
+	 border-radius: 5px;
+	 box-shadow: 0 0 5px #CCCCCC; /*阴影模糊程度5px*/
+	}
+	 
+.pic img {display: block;
+	      width:200px;           
+          height: auto;}

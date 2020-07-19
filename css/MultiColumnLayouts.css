@@ -1,0 +1,38 @@
+/*Css3  （有很多属性可查手册） 
+瀑布流(多栏布局)
+columns(综合属性)：[column-width] || [column-count]
+column-width column-count等   (有单独属性)  写之前要加上浏览器引擎标志 如-webkit;-mor等
+column-rule:设置或检索对象的列与列之间的边框
+column-gap:设置或检索对象的列与列之间的间隙
+*/
+#main{-webkit-column-width:202px;     /*列宽自己算了设置  各个引擎都设置 兼容*/
+      -moz-column-width: 202px;
+	  -o-column-width:202px;
+	  -ms-column-width:202px;
+	  
+	  -webkit-column-rule:2px dashed red;  /*虚线*/  
+	  -moz-column-rule: 2px dashed red;
+	  -o-column-rule:2px dashed red;
+	  -ms-column-rule:2px dashed red;
+	  
+	  /*不一定适用，窗口宽度除以列宽平均分配间隙*/
+	  -webkit-column-gap:5px;  /*虚线*/
+	  -moz-column-gap: 5px;
+	  -o-column-gap:5px;
+	  -ms-column-gap:5px;     
+	  
+      }
+.box{padding:10px 0 0 15px;
+     border:1px solid red;
+     }   /*顶部右边下边左边*/
+.pic{/*padding:10px 40px 10px 30px;*/
+     padding:10px;
+     border:1px solid green;
+	 border-radius:15px;
+	 box-shadow: 0 0 5px #CCCCCC;
+	 width:165px;                 s
+     }
+.pic img{display:block;
+         width:165px;
+		 height: auto;
+		 }
